@@ -11,10 +11,12 @@ const HomePage = () => {
 		fetchFeaturedSongs,
 		fetchMadeForYouSongs,
 		fetchTrendingSongs,
+		fetchRandomSongs,
 		isLoading,
 		madeForYouSongs,
 		featuredSongs,
 		trendingSongs,
+		randomSongs,
 	} = useMusicStore();
 
 	const { initializeQueue } = usePlayerStore();
@@ -23,7 +25,8 @@ const HomePage = () => {
 		fetchFeaturedSongs();
 		fetchMadeForYouSongs();
 		fetchTrendingSongs();
-	}, [fetchFeaturedSongs, fetchMadeForYouSongs, fetchTrendingSongs]);
+		fetchRandomSongs();
+	}, [fetchFeaturedSongs, fetchTrendingSongs, fetchRandomSongs]);
 
 	useEffect(() => {
 		if (madeForYouSongs.length > 0 && featuredSongs.length > 0 && trendingSongs.length > 0) {
@@ -41,7 +44,7 @@ const HomePage = () => {
 					<FeaturedSection />
 
 					<div className='space-y-8'>
-						<SectionGrid title='Made For You' songs={madeForYouSongs} isLoading={isLoading} />
+						<SectionGrid title="Random Recommendations" songs={randomSongs} isLoading={isLoading} />
 						<SectionGrid title='Trending' songs={trendingSongs} isLoading={isLoading} />
 					</div>
 				</div>

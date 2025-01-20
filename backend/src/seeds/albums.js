@@ -271,7 +271,7 @@ const seedDatabase = async () => {
 				plays: Math.floor(Math.random() * 5000),
 				duration: 20, // 0:20
 			},
-
+			
 			{
 				title: "बाचा भयो",
 				artist: "Swoopna Suman",

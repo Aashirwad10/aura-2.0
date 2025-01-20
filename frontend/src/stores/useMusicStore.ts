@@ -12,6 +12,8 @@ interface MusicStore {
 	featuredSongs: Song[];
 	madeForYouSongs: Song[];
 	trendingSongs: Song[];
+	randomSongs: Song[],
+
 	stats: Stats;
 
 	fetchAlbums: () => Promise<void>;
@@ -19,6 +21,7 @@ interface MusicStore {
 	fetchFeaturedSongs: () => Promise<void>;
 	fetchMadeForYouSongs: () => Promise<void>;
 	fetchTrendingSongs: () => Promise<void>;
+	fetchRandomSongs: () => Promise<void>;
 	fetchStats: () => Promise<void>;
 	fetchSongs: () => Promise<void>;
 	deleteSong: (id: string) => Promise<void>;
@@ -34,6 +37,7 @@ export const useMusicStore = create<MusicStore>((set) => ({
 	madeForYouSongs: [],
 	featuredSongs: [],
 	trendingSongs: [],
+	randomSongs: [],
 	stats: {
 		totalSongs: 0,
 		totalAlbums: 0,
@@ -160,4 +164,17 @@ export const useMusicStore = create<MusicStore>((set) => ({
 			set({ isLoading: false });
 		}
 	},
+
+	fetchRandomSongs: async () => {
+		set({ isLoading: true, error: null });
+		try {
+			const response = await axiosInstance.get("/songs/random");
+			set({ randomSongs: response.data }); // Store the random songs in state
+		} catch (error: any) {
+			set({ error: error.response.data.message });
+		} finally {
+			set({ isLoading: false });
+		}
+	},
+	
 }));
